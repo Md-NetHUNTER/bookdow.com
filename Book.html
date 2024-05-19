@@ -854,21 +854,107 @@
 
 <h2>Contact Us</h2>
 
-<form action="mailto:mdchild21@gmail.com" method="post" enctype="text/plain">
-<label for="name">Name:</label>
-<input type="text" id="name" name="name" required>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-<label for="email">Email:</label>
-<input type="email" id="email" name="email" required>
+<h2>Contact Us</h2>
 
-<label for="subject">Subject:</label>
-<input type="text" id="subject" name="subject" required>
+<div class="container">
+    <form action="send_email.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
 
-<label for="message">Message:</label>
-<textarea id="message" name="message" rows="4" required></textarea>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
-<input type="submit" value="Submit">
-</form>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <input type="submit" value="Submit">
+    </form>
+
+	<script>
+		<?php
+// Set the recipient email address
+$to_email = "mdchild21@gmail.com";
+
+// Get form fields data
+$name = $_POST['name'];
+$email = $_POST['email'];
+$subject = $_POST['subject'];
+$message = $_POST['message'];
+
+// Compose the email content
+$email_subject = "New Contact Form Submission: $subject";
+$email_body = "You have received a new message from your website contact form.\n\n" . "Name: $name\nEmail: $email\nSubject: $subject\nMessage:\n$message";
+
+// Set email headers
+$headers = "From: $name <$email>\r\nReply-To: $email\r\n";
+
+// Send email
+if (mail($to_email, $email_subject, $email_body, $headers)) {
+    // If mail sent successfully, redirect to success page
+    header("Location: thank_you.html");
+} else {
+    // If unable to send email, display an error message
+    echo "Error: Unable to send email. Please try again later.";
+}
+?>
+
+	</script>
+	<style>
+		/* Basic CSS for styling the form */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label, input, textarea {
+    display: block;
+    width: 100%;
+}
+
+input[type="text"], input[type="email"], textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+	</style>
+</div>
+
+</body>
+</html>
+
 
 			</div>
 
